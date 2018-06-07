@@ -54,14 +54,14 @@ Ansible is used for easy and quick setup. The objective is make it easy for the 
 
 The minimum Ansible required version to use is:
 
-```bash
+```console
 $ ansible --version
 ansible 2.3.1.0
 ```
 
 The 3scale performance testing ansible project can be obtained from the following GitHub repository:
 
-```bash
+```console
 $ git clone git@github.com:3scale/perftest-toolkit.git
 $ cd deployment
 ```
@@ -113,7 +113,7 @@ After this, the *echo-api* service should be listening on port **8081**
 Test that the *echo-api* upstream test API has been installed and configured correctly.
 To do this you can test that the service responds correctly to HTTP requests:
 
-```bash
+```console
 $ curl -v http://127.0.0.1:8081
 * About to connect() to 127.0.0.1 port 8081 (#0)
 *   Trying 127.0.0.1…
@@ -172,12 +172,12 @@ Most of the configuration coming from default AMP templates is ok for performanc
 Some configuration parameters (in deployment config) that were applied during testing:
 
 **apicast-production deployment config**
-```
+```yaml
 - name: APICAST_RESPONSE_CODES
   value: "false"
 ```
 **backend-listener deployment config**
-```
+```yaml
  - name: CONFIG_NOTIFICATION_BATCH
    value: "1000000"
 ```
@@ -206,7 +206,7 @@ documentation reference for more information.
 
 When *oc* is set up, fill the following template with your **<OCP_DOMAIN>**
 
-```
+```yaml
 apiVersion: v1
 kind: Route
 metadata:
@@ -223,7 +223,7 @@ spec:
 
 Save it on a file. Then, create wildcard route using *oc*:
 
-```
+```shell
 # oc create -f wildcard-route.yml
 route "apicast-wildcard-router-route" created
 ```
@@ -400,7 +400,7 @@ If running as root is not an option, docker can be managed to run as non-root us
 
 TL;DR
 
-```bash
+```console
 # Create the docker group.
 $ sudo groupadd docker
 
@@ -422,7 +422,7 @@ Requirements:
 
 To perform tests the *3scale-pertest* tool is available from where the injector is installed. The usage of the 3scale-perftest tool is:
 
-```bash
+```console
 $ 3scale-perftest -h
 Usage:
     3scale-perftest -h                       Display this help message.
@@ -436,7 +436,7 @@ Where:
 
 For example:
 
-```bash
+```console
 $ 3scale-perftest -r 10000 -d 600 -t 50
 ```
 
@@ -473,7 +473,7 @@ injector_jmeter_target_host: <jmeter_target_host>
 
 If *injector_jmeter_target_host* parameter is changed, ansible playbook has to be re-run.
 
-```
+```shell
 ansible-playbook -i hosts injector.yml
 ```
 
@@ -492,7 +492,7 @@ buddhi_wildcard_domain: benchmark.<OCP_domain>
 
 If *buddhi_wildcard_domain* parameter is changed, both ansible playbooks have to be re-run.
 
-```
+```shell
 ansible-playbook -i hosts buddhi.yml
 ansible-playbook -i hosts injector.yml
 ```
@@ -523,7 +523,7 @@ Pods restart is required or wait until process fetches new configuration based o
 
 Restart is easily done downscaling to 0 and then scaling back to desired number of pods.
 
-```bash
+```console
 $ oc scale dc apicast-production --replicas=0
 $ oc scale dc apicast-production --replicas=2
 ```
@@ -577,14 +577,14 @@ This is a small guideline to monitor *Job Queue* size:
 
 - Get backend redis pod
 
-```bash
+```console
 $ oc get pods | grep redis
 backend-redis-2-nkrkk         1/1       Running   0          14d
 ```
 
 - Get Job Queue size
 
-```bash
+```console
 $ oc rsh backend-redis-2-nkrkk /bin/sh -i -c 'redis-cli -n 1 llen resque:queue:priority'
 (integer) 0
 ```
