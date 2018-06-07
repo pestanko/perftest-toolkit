@@ -9,7 +9,7 @@ Responsibilities:
 ## Usage
 
 ```shell
-docker run --rm quay.io/3scale/perftest-toolkit:buddhi-v1.0.0 -h
+docker run --rm quay.io/3scale/perftest-toolkit:buddhi-v1.1.0 -h
 usage: buddhi [options]
     -T, --testplan      load test definition key: ["saas", "onprem", "simple"]
     -I, --internal-api  backend internal api endpoint
@@ -29,12 +29,12 @@ Currently implemented test plans:
 
 Traffic files can be downloaded using api endpoints:
  - **/paths/backend**: request path. Add *lines* query param for any number of valid random requests.
-```bash
+```console
 $ curl http://127.0.0.1:8089/paths/backend?lines=1
 /transactions/authrep.xml?provider_key=5350a1bd-b476-44fb-adb2-e1c87e58c960&service_id=39395bbc-4ea2-46d9-878b-188c1ce92e33&user_key=f5a8c86e7bbdcccf
 ```
  - **/paths/amp**: CSV formatted file with **Host, Path*^** header. Add *lines* query param for any number of valid random requests.
-```bash
+```console
 $ curl http://127.0.0.1:8089/paths/amp?lines=1
 "53f07c14-e35e-4bfa-b0b1-9d3a993fad14.benchmark.3sca.net","/1?app_id=6641c22185bbf204&app_key=3d0112323ceef116"
 ```
@@ -49,7 +49,7 @@ Format
 
 Traffic information can be generated using */paths/amp* endpoint as follows:
 
-```bash
+```console
 $ curl http://127.0.0.1:8089/paths/amp?lines=5 2>/dev/null > traffic.csv
 $ cat traffic.csv
 "53f07c14-e35e-4bfa-b0b1-9d3a993fad14.benchmark.3sca.net","/1?app_id=ddfa9a8842a3822e&app_key=73418183a69b027a"
@@ -100,7 +100,7 @@ make test
 
 ```shell
 make clean
-make build'
+make build
 ```
 
 ## Releasing
